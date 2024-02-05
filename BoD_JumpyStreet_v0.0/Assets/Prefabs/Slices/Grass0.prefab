@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &5300403060596205624
+--- !u!1001 &6507866062337270246
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,14 +8,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1816886846896938, guid: 72d4c1d4f27d9c24d89cc4461de47bc2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3087327749666547740, guid: 72d4c1d4f27d9c24d89cc4461de47bc2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -8
-      objectReference: {fileID: 0}
     - target: {fileID: 3723771862204825759, guid: 72d4c1d4f27d9c24d89cc4461de47bc2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -58,23 +50,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4317246061331251213, guid: 72d4c1d4f27d9c24d89cc4461de47bc2, type: 3}
       propertyPath: m_Name
-      value: Grass02
-      objectReference: {fileID: 0}
-    - target: {fileID: 5566562761549035999, guid: 72d4c1d4f27d9c24d89cc4461de47bc2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5997076405466730878, guid: 72d4c1d4f27d9c24d89cc4461de47bc2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7179429956149869668, guid: 72d4c1d4f27d9c24d89cc4461de47bc2, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 7
+      value: Grass0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
+    - {fileID: 1047244003966441101, guid: 72d4c1d4f27d9c24d89cc4461de47bc2, type: 3}
     - {fileID: 5281714909429800454, guid: 72d4c1d4f27d9c24d89cc4461de47bc2, type: 3}
+    - {fileID: 8604425962639060975, guid: 72d4c1d4f27d9c24d89cc4461de47bc2, type: 3}
+    - {fileID: 1220770987149590060, guid: 72d4c1d4f27d9c24d89cc4461de47bc2, type: 3}
+    - {fileID: 7267116422344951204, guid: 72d4c1d4f27d9c24d89cc4461de47bc2, type: 3}
+    - {fileID: 6752900916446264537, guid: 72d4c1d4f27d9c24d89cc4461de47bc2, type: 3}
+    - {fileID: 4472952294538165143, guid: 72d4c1d4f27d9c24d89cc4461de47bc2, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72d4c1d4f27d9c24d89cc4461de47bc2, type: 3}
