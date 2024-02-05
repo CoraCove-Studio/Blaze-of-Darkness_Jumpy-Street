@@ -2,15 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* TO DO
+ * wrap currentPos in conditional so it only rewrites value if different
+ * wrap MovePlayer() in conditional so it only moves player if player input has occured
+ * score call on valid forward movement
+ * parent player to log
+ * collision handler 
+ * check valid movement - need to find prevPos and update as player moves
+ */
+
 public class PlayerMovement : MonoBehaviour
 {
-    //hardcoded later once method of movement is settled
+
     [Header("Values")]
     [SerializeField] private int amountToMove;
     [SerializeField] private Vector3Int destinationPos;
     [SerializeField] private Vector3Int currentPos;
 
-    [Header("Key Codes")] //hardcoded later
+    [Header("Key Codes")] 
     [SerializeField] private KeyCode forward;
     [SerializeField] private KeyCode backward;
     [SerializeField] private KeyCode left;
@@ -58,5 +67,10 @@ public class PlayerMovement : MonoBehaviour
     private void MovePlayer(Vector3Int newPosition)
     {
         player.transform.position = new Vector3Int(newPosition.x, newPosition.y, newPosition.z);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+
     }
 }
