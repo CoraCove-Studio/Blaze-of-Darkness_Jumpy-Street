@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /* TO DO
- * wrap MovePlayer() in conditional so it only moves player if player input has occured
- * score call on valid forward movement
  * parent player to log
  * collision handler 
- * check valid movement - need to find prevPos and update as player moves
  */
 
 public class PlayerMovement : MonoBehaviour
@@ -19,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3Int currentPos;
     private Vector3Int prevPos;
     private bool ableToMove;
+    [SerializeField] private int farthestDistanceReached;
 
     [Header("Key Codes")] 
     [SerializeField] private KeyCode forward;
@@ -33,11 +31,13 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        gm = FindObjectOfType<GameManager>();
         ableToMove = true;
         player = this.gameObject;
         destinationPos = Vector3Int.FloorToInt(player.transform.position);
         currentPos = Vector3Int.FloorToInt(player.transform.position);
         prevPos = Vector3Int.FloorToInt(player.transform.position);
+        farthestDistanceReached = 0;
     }
 
 
@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
     {
         UpdatePlayerPosition();
 
-        ableToMove = currentPos == destinationPos ? true : false;
+        HasPlayerArrivedAtDestination();
 
         ProcessInput();
     }
@@ -62,7 +62,28 @@ public class PlayerMovement : MonoBehaviour
             currentPos = Vector3Int.FloorToInt(player.transform.position);
         }
     }
+    
+    private void HasPlayerArrivedAtDestination()
+    {
+        if(currentPos == destinationPos)
+        {
+            ableToMove = true;
+            CheckPlayerDistance();
+        }
+        else
+        {
+            ableToMove = false;
+        }
+    }
 
+    private void CheckPlayerDistance()
+    {
+        if(currentPos.z > farthestDistanceReached)
+        {
+            farthestDistanceReached = currentPos.z;
+            gm.IncrementPlayerScore();
+        }
+    }
     private void ProcessInput()
     {
         if (Input.GetKeyDown(forward) && ableToMove)
@@ -99,15 +120,15 @@ public class PlayerMovement : MonoBehaviour
             destinationPos = prevPos;
             print("found tree");
         }
-        //if (other.CompareTag("log"))
-        //{
-        //    //log behavior --> parent player to log
-        //    //on movement have to deparent --> maybe OnTriggerExit
-        //}
-        //if (other.CompareTag("death zone"))
-        //{
-        //    //for cars and invisible boundary colliders
-        //    //ends game
-        //}
+        if (other.CompareTag(TagManager.LOG))
+        {
+            //log behavior --> parent player to log
+            //on movement have to deparent --> maybe OnTriggerExit
+        }
+        if (other.CompareTag(TagManager.HAZARD))
+        {
+            //for cars and invisible boundary colliders
+            //ends game
+        }
     }
 }
