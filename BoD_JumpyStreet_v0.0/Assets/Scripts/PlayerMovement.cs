@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /* TO DO
- * wrap currentPos in conditional so it only rewrites value if different
  * wrap MovePlayer() in conditional so it only moves player if player input has occured
  * score call on valid forward movement
  * parent player to log
@@ -16,8 +15,10 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Values")]
     [SerializeField] private int amountToMove;
-    [SerializeField] private Vector3Int destinationPos;
+    private Vector3Int destinationPos;
     [SerializeField] private Vector3Int currentPos;
+    [SerializeField] private Vector3Int prevPos;
+    [SerializeField] private bool inputGiven;
 
     [Header("Key Codes")] 
     [SerializeField] private KeyCode forward;
@@ -29,14 +30,20 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        inputGiven = false;
         player = this.gameObject;
         destinationPos = Vector3Int.FloorToInt(player.transform.position);
+        currentPos = Vector3Int.FloorToInt(player.transform.position);
+        prevPos = Vector3Int.FloorToInt(player.transform.position);
     }
 
 
     void Update()
     {
-        currentPos = Vector3Int.FloorToInt(player.transform.position);
+        if(Vector3Int.FloorToInt(player.transform.position) != currentPos)
+        {
+            currentPos = Vector3Int.FloorToInt(player.transform.position);
+        }
         ProcessInput();
     }
 
@@ -48,29 +55,52 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(forward))
         {
+            inputGiven = true;
             destinationPos = new Vector3Int(currentPos.x, currentPos.y, (currentPos.z + amountToMove));
         }
         else if (Input.GetKeyDown(backward))
         {
+            inputGiven = true;
             destinationPos = new Vector3Int(currentPos.x, currentPos.y, (currentPos.z - amountToMove));
         }
         else if (Input.GetKeyDown(left))
         {
+            inputGiven = true;
             destinationPos = new Vector3Int((currentPos.x - amountToMove), currentPos.y, currentPos.z);
         }
         else if(Input.GetKeyDown(right))
         {
+            inputGiven = true;
             destinationPos = new Vector3Int((currentPos.x + amountToMove), currentPos.y, currentPos.z);
+        }
+        else
+        {
+            inputGiven = false;
         }
     }
 
     private void MovePlayer(Vector3Int newPosition)
     {
-        player.transform.position = new Vector3Int(newPosition.x, newPosition.y, newPosition.z);
+            prevPos = currentPos;
+            player.transform.position = Vector3.MoveTowards(currentPos, newPosition, 1f);
+            inputGiven = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-
+        if (other.CompareTag("tree"))
+        {
+            print("found tree");
+        }
+        if (other.CompareTag("log"))
+        {
+            //log behavior --> parent player to log
+            //on movement have to deparent --> maybe OnTriggerExit
+        }
+        if (other.CompareTag("death zone"))
+        {
+            //for cars and invisible boundary colliders
+            //ends game
+        }
     }
 }
