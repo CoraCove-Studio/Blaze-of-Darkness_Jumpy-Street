@@ -15,10 +15,11 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Values")]
     [SerializeField] private int amountToMove;
-    private Vector3Int destinationPos;
+    [SerializeField] private Vector3Int destinationPos;
     [SerializeField] private Vector3Int currentPos;
     [SerializeField] private Vector3Int prevPos;
     [SerializeField] private bool inputGiven;
+    [SerializeField] private bool ableToMove;
 
     [Header("Key Codes")] 
     [SerializeField] private KeyCode forward;
@@ -30,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        ableToMove = true;
         inputGiven = false;
         player = this.gameObject;
         destinationPos = Vector3Int.FloorToInt(player.transform.position);
@@ -45,6 +47,10 @@ public class PlayerMovement : MonoBehaviour
             currentPos = Vector3Int.FloorToInt(player.transform.position);
         }
         ProcessInput();
+        if(currentPos == destinationPos)
+        {
+            ableToMove = true;
+        }
     }
 
     private void FixedUpdate()
@@ -53,25 +59,29 @@ public class PlayerMovement : MonoBehaviour
     }
     private void ProcessInput()
     {
-        if (Input.GetKeyDown(forward))
+        if (Input.GetKeyDown(forward) && !inputGiven)
         {
             inputGiven = true;
             destinationPos = new Vector3Int(currentPos.x, currentPos.y, (currentPos.z + amountToMove));
+            prevPos = currentPos;
         }
-        else if (Input.GetKeyDown(backward))
+        else if (Input.GetKeyDown(backward) && !inputGiven)
         {
             inputGiven = true;
             destinationPos = new Vector3Int(currentPos.x, currentPos.y, (currentPos.z - amountToMove));
+            prevPos = currentPos;
         }
-        else if (Input.GetKeyDown(left))
+        else if (Input.GetKeyDown(left) && !inputGiven)
         {
             inputGiven = true;
             destinationPos = new Vector3Int((currentPos.x - amountToMove), currentPos.y, currentPos.z);
+            prevPos = currentPos;
         }
-        else if(Input.GetKeyDown(right))
+        else if(Input.GetKeyDown(right) && !inputGiven)
         {
             inputGiven = true;
             destinationPos = new Vector3Int((currentPos.x + amountToMove), currentPos.y, currentPos.z);
+            prevPos = currentPos;
         }
         else
         {
@@ -81,9 +91,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer(Vector3Int newPosition)
     {
-            prevPos = currentPos;
-            player.transform.position = Vector3.MoveTowards(currentPos, newPosition, 1f);
-            inputGiven = false;
+        ableToMove= false;
+        player.transform.position = Vector3.MoveTowards(currentPos, newPosition, 1f);
+        inputGiven = false;
     }
 
     private void OnTriggerEnter(Collider other)
