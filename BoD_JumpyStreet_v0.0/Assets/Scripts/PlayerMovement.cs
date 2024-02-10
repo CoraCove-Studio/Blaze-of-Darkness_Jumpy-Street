@@ -15,11 +15,10 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Values")]
     [SerializeField] private int amountToMove;
-    [SerializeField] private Vector3Int destinationPos;
-    [SerializeField] private Vector3Int currentPos;
-    [SerializeField] private Vector3Int prevPos;
-    [SerializeField] private bool inputGiven;
-    [SerializeField] private bool ableToMove;
+    private Vector3Int destinationPos;
+    private Vector3Int currentPos;
+    private Vector3Int prevPos;
+    private bool ableToMove;
 
     [Header("Key Codes")] 
     [SerializeField] private KeyCode forward;
@@ -27,12 +26,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private KeyCode left;
     [SerializeField] private KeyCode right;
 
+    [Header("Other Scripts")]
+    private GameManager gm;
+
     private GameObject player;
 
     void Start()
     {
         ableToMove = true;
-        inputGiven = false;
         player = this.gameObject;
         destinationPos = Vector3Int.FloorToInt(player.transform.position);
         currentPos = Vector3Int.FloorToInt(player.transform.position);
@@ -42,75 +43,71 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if(Vector3Int.FloorToInt(player.transform.position) != currentPos)
-        {
-            currentPos = Vector3Int.FloorToInt(player.transform.position);
-        }
+        UpdatePlayerPosition();
+
+        ableToMove = currentPos == destinationPos ? true : false;
+
         ProcessInput();
-        if(currentPos == destinationPos)
-        {
-            ableToMove = true;
-        }
     }
 
     private void FixedUpdate()
     {
         MovePlayer(destinationPos);
     }
+
+    private void UpdatePlayerPosition()
+    {
+        if (Vector3Int.FloorToInt(player.transform.position) != currentPos)
+        {
+            currentPos = Vector3Int.FloorToInt(player.transform.position);
+        }
+    }
+
     private void ProcessInput()
     {
-        if (Input.GetKeyDown(forward) && !inputGiven)
+        if (Input.GetKeyDown(forward) && ableToMove)
         {
-            inputGiven = true;
             destinationPos = new Vector3Int(currentPos.x, currentPos.y, (currentPos.z + amountToMove));
             prevPos = currentPos;
         }
-        else if (Input.GetKeyDown(backward) && !inputGiven)
+        else if (Input.GetKeyDown(backward) && ableToMove)
         {
-            inputGiven = true;
             destinationPos = new Vector3Int(currentPos.x, currentPos.y, (currentPos.z - amountToMove));
             prevPos = currentPos;
         }
-        else if (Input.GetKeyDown(left) && !inputGiven)
+        else if (Input.GetKeyDown(left) && ableToMove)
         {
-            inputGiven = true;
             destinationPos = new Vector3Int((currentPos.x - amountToMove), currentPos.y, currentPos.z);
             prevPos = currentPos;
         }
-        else if(Input.GetKeyDown(right) && !inputGiven)
+        else if(Input.GetKeyDown(right) && ableToMove)
         {
-            inputGiven = true;
             destinationPos = new Vector3Int((currentPos.x + amountToMove), currentPos.y, currentPos.z);
             prevPos = currentPos;
-        }
-        else
-        {
-            inputGiven = false;
         }
     }
 
     private void MovePlayer(Vector3Int newPosition)
     {
-        ableToMove= false;
         player.transform.position = Vector3.MoveTowards(currentPos, newPosition, 1f);
-        inputGiven = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("tree"))
+        if (other.CompareTag(TagManager.OBSTACLE))
         {
+            destinationPos = prevPos;
             print("found tree");
         }
-        if (other.CompareTag("log"))
-        {
-            //log behavior --> parent player to log
-            //on movement have to deparent --> maybe OnTriggerExit
-        }
-        if (other.CompareTag("death zone"))
-        {
-            //for cars and invisible boundary colliders
-            //ends game
-        }
+        //if (other.CompareTag("log"))
+        //{
+        //    //log behavior --> parent player to log
+        //    //on movement have to deparent --> maybe OnTriggerExit
+        //}
+        //if (other.CompareTag("death zone"))
+        //{
+        //    //for cars and invisible boundary colliders
+        //    //ends game
+        //}
     }
 }
