@@ -35,8 +35,8 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    private int playerScore = 0;
-    private int highScore = 0;
+    [SerializeField] private int playerScore = 0;
+    [SerializeField] private int highScore = 0;
 
     public int HighScore
     {
