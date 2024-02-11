@@ -67,7 +67,7 @@ public class ObjectPooler : MonoBehaviour
 
     private GameObject ReturnNewChunk(ChunkTypes typeOfChunk)
     {
-        int randomIndex = GetLengthOfChunkListByType(typeOfChunk);
+        int randomIndex = Random.Range(0, GetLengthOfChunkListByType(typeOfChunk));
         GameObject chunk;
         switch (typeOfChunk)
         {

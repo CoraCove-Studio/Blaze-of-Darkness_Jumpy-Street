@@ -149,7 +149,7 @@ Transform:
   m_GameObject: {fileID: 112729753}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.832582, y: -3.5311253, z: 11.063364}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -167,13 +167,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28cead8e94fffdb49b3e7b685f3372a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listOfGrassChunks:
-  - {fileID: 6000739111110104073, guid: 9ce742ab5000e564c8cbbf7e64ea6eb7, type: 3}
+  listOfGrassChunks: []
   listOfStreetChunks: []
   listOfWaterChunks: []
   listOfLogs: []
   listOfCars: []
-  listOfChunkPrefabsGrass: []
+  listOfChunkPrefabsGrass:
+  - {fileID: 6000739111110104073, guid: 9ce742ab5000e564c8cbbf7e64ea6eb7, type: 3}
   listOfChunkPrefabsStreet: []
   listOfChunkPrefabsWater: []
 --- !u!1 &223776114
@@ -303,9 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   amountToMove: 1
-  currentPos: {x: 0, y: 0, z: 0}
-  prevPos: {x: 0, y: 0, z: 0}
-  inputGiven: 0
+  farthestDistanceReached: 0
   forward: 119
   backward: 115
   left: 97
@@ -517,7 +515,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b42e87f6179400c479248c04745bffb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectPooler: {fileID: 0}
+  objectPooler: {fileID: 112729755}
+  listOfActiveChunks: []
+  positionForNextChunk: {x: 0, y: 0, z: 0}
 --- !u!4 &1652058119
 Transform:
   m_ObjectHideFlags: 0

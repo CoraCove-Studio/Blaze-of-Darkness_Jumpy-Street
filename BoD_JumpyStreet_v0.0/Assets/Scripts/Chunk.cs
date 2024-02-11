@@ -4,12 +4,11 @@ using UnityEngine;
 public class Chunk : MonoBehaviour
 {
     [SerializeField] private List<Slice> listOfSlices = new();
-    private int numOfSlices;
     public int NumOfSlices
     {
-                get => numOfSlices;
-        private set => numOfSlices = value;
+        get => listOfSlices.Count;
     }
+
     public void AddSliceToList(Slice sliceToAdd)
     {
         listOfSlices.Add(sliceToAdd);

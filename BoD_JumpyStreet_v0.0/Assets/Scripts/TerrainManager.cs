@@ -6,10 +6,10 @@ public class TerrainManager : MonoBehaviour
 {
     [SerializeField] private ObjectPooler objectPooler;
 
-    private List<GameObject> listOfActiveChunks = new();
-    private Vector3 positionForNextChunk = new(0, 0, 0);
+    [SerializeField] private List<GameObject> listOfActiveChunks = new();
+    [SerializeField] private Vector3 positionForNextChunk = new(0, 0, 0);
 
-    private int maxChunks = 7;
+    private int maxChunks = 3;
 
     private void Start()
     {
@@ -25,12 +25,14 @@ public class TerrainManager : MonoBehaviour
                 GameObject newChunk = RequestNewChunk(ChunkTypes.GRASS);
                 PushChunk(newChunk);
                 PositionChunk(newChunk);
+                newChunk.SetActive(true);
             }
             else
             {
                 GameObject newChunk = RequestNewChunk(ChunkTypes.GRASS);
                 PushChunk(newChunk);
                 PositionChunk(newChunk);
+                newChunk.SetActive(true);
             }
         }
     }
