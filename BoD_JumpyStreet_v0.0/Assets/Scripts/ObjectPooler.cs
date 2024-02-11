@@ -13,6 +13,9 @@ public class ObjectPooler : MonoBehaviour
     [SerializeField] List<GameObject> listOfChunkPrefabsStreet = new();
     [SerializeField] List<GameObject> listOfChunkPrefabsWater = new();
 
+    [SerializeField] List<GameObject> listOfLogPrefabs = new();
+    [SerializeField] List<GameObject> listOfCarPrefabs = new();
+
     // keep track of ALL object instances
 
     public GameObject ReturnChunk(ChunkTypes chunkType)
@@ -43,7 +46,7 @@ public class ObjectPooler : MonoBehaviour
         }
     }
 
-    public void ReturnLog()
+    public void ReturnLog(LogLength logLength)
     {
 
     }
