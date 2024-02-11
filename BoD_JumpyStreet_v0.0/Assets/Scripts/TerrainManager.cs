@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,55 +8,83 @@ public class TerrainManager : MonoBehaviour
     [SerializeField] private ObjectPooler objectPooler;
 
     [SerializeField] private List<GameObject> listOfActiveChunks = new();
-    [SerializeField] private Vector3 positionForNextChunk = new(0, 0, 0);
+    [SerializeField] private int xPositionForNextChunk;
 
     private int maxChunks = 3;
 
     private void Start()
     {
-        GenerateStartTerrain();
+        // Doesn't quite work yet, need to test better
+        // GenerateStartTerrain();
     }
 
-    private void GenerateStartTerrain()
+    private void Update()
     {
-        for (int i = 0; i <= maxChunks; i++)
+        if (Input.GetKeyDown(KeyCode.K))
         {
-            if (i == 0)
-            {
-                GameObject newChunk = RequestNewChunk(ChunkTypes.GRASS);
-                PushChunk(newChunk);
-                PositionChunk(newChunk);
-                newChunk.SetActive(true);
-            }
-            else
-            {
-                GameObject newChunk = RequestNewChunk(ChunkTypes.GRASS);
-                PushChunk(newChunk);
-                PositionChunk(newChunk);
-                newChunk.SetActive(true);
-            }
+            LoadChunk(ChunkTypes.GRASS);
         }
+        else if (Input.GetKeyDown(KeyCode.H))
+        {
+            OffloadChunk();
+        }
+    }
+
+    //private void GenerateStartTerrain()
+    //{
+    //    for (int i = 0; i <= maxChunks; i++)
+    //    {
+    //        if (i == 0)
+    //        {
+    //            LoadChunk(ChunkTypes.GRASS);
+    //        }
+    //        else
+    //        {
+    //            // TODO: Make random type
+    //            LoadChunk(ChunkTypes.GRASS);
+    //        }
+    //    }
+    //}
+
+    private void LoadChunk(ChunkTypes chunkType)
+    {
+        GameObject newChunk = RequestNewChunk(chunkType);
+        PushChunk(newChunk);
+        PositionChunk(newChunk);
+        newChunk.SetActive(true);
+    }
+
+    private void OffloadChunk()
+    {
+        GameObject chunk = ShiftChunk();
+        chunk.SetActive(false);
+        listOfActiveChunks.Remove(chunk);
     }
 
     private GameObject RequestNewChunk(ChunkTypes chunkType)
     {
         // gets a new chunk from the object pooler
         GameObject newChunk = objectPooler.ReturnChunk(chunkType);
-        PushChunk(newChunk);
         return newChunk;
     }
 
     private void PositionChunk(GameObject chunk)
     {
-        chunk.transform.position = positionForNextChunk;
-        Chunk _ = chunk.GetComponent<Chunk>();
-        Vector3 newPos = new(0, 0, _.NumOfSlices);
-        positionForNextChunk = newPos;
+        Vector3 newPos = new(0, 0, xPositionForNextChunk);
+        chunk.transform.position = newPos;
+        UpdateNextChunkPosition(chunk);
     }
 
-    private void ShiftChunk()
+    private void UpdateNextChunkPosition(GameObject currentChunk)
     {
-        // removes and returns the first of the ordered list
+        int slicesInLastChunk = currentChunk.GetComponent<Chunk>().NumOfSlices;
+        xPositionForNextChunk += slicesInLastChunk;
+    }
+
+    private GameObject ShiftChunk()
+    {
+        GameObject chunk = listOfActiveChunks[0];
+        return chunk;
     }
 
     private void PushChunk(GameObject chunkToPush)
