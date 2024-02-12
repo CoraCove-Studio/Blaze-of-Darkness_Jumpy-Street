@@ -4,7 +4,7 @@ using UnityEngine;
 public class Chunk : MonoBehaviour
 {
     [SerializeField] private List<Slice> listOfSlices = new();
-    public int NumOfSlices
+    [SerializeField] public int NumOfSlices
     {
         get => listOfSlices.Count;
     }

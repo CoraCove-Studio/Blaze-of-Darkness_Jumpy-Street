@@ -25,13 +25,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private KeyCode right;
 
     [Header("Other Scripts")]
-    private GameManager gm;
 
     private GameObject player;
 
     void Start()
     {
-        gm = FindObjectOfType<GameManager>();
         ableToMove = true;
         player = this.gameObject;
         destinationPos = Vector3Int.FloorToInt(player.transform.position);
@@ -81,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
         if(currentPos.z > farthestDistanceReached)
         {
             farthestDistanceReached = currentPos.z;
-            gm.IncrementPlayerScore();
+            GameManager.Instance.IncrementPlayerScore();
         }
     }
     private void ProcessInput()

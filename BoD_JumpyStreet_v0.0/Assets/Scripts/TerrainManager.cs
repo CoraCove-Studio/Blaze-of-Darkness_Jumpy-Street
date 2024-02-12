@@ -10,19 +10,18 @@ public class TerrainManager : MonoBehaviour
     [SerializeField] private List<GameObject> listOfActiveChunks = new();
     [SerializeField] private int xPositionForNextChunk;
 
-    private int maxChunks = 3;
+    private int maxChunks = 4;
 
     private void Start()
     {
-        // Doesn't quite work yet, need to test better
-        // GenerateStartTerrain();
+        GenerateStartTerrain();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            LoadChunk(ChunkTypes.GRASS);
+            LoadChunk(GetRandomChunkType());
         }
         else if (Input.GetKeyDown(KeyCode.H))
         {
@@ -30,21 +29,21 @@ public class TerrainManager : MonoBehaviour
         }
     }
 
-    //private void GenerateStartTerrain()
-    //{
-    //    for (int i = 0; i <= maxChunks; i++)
-    //    {
-    //        if (i == 0)
-    //        {
-    //            LoadChunk(ChunkTypes.GRASS);
-    //        }
-    //        else
-    //        {
-    //            // TODO: Make random type
-    //            LoadChunk(ChunkTypes.GRASS);
-    //        }
-    //    }
-    //}
+    private void GenerateStartTerrain()
+    {
+        for (int i = 0; i <= maxChunks; i++)
+        {
+            if (i == 0)
+            {
+                LoadChunk(ChunkTypes.GRASS);
+            }
+            else
+            {
+                // TODO: Make random type
+                LoadChunk(GetRandomChunkType());
+            }
+        }
+    }
 
     private void LoadChunk(ChunkTypes chunkType)
     {
