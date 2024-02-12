@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /* TO DO
- * parent player to log
+ * parent gameObject to log
  * collision handler 
  */
 
@@ -15,8 +15,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector3Int destinationPos;
     private Vector3Int currentPos;
     private Vector3Int prevPos;
-    private bool ableToMove;
-    [SerializeField] private int farthestDistanceReached;
+    private bool ableToMove = true;
+    [SerializeField] private int farthestDistanceReached = 0;
+    [SerializeField] private float maxDistanceDelta = 1f;
 
     [Header("Key Codes")] 
     [SerializeField] private KeyCode forward;
@@ -24,20 +25,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private KeyCode left;
     [SerializeField] private KeyCode right;
 
-    [Header("Other Scripts")]
-
-    private GameObject player;
-
     void Start()
     {
-        ableToMove = true;
-        player = this.gameObject;
-        destinationPos = Vector3Int.FloorToInt(player.transform.position);
-        currentPos = Vector3Int.FloorToInt(player.transform.position);
-        prevPos = Vector3Int.FloorToInt(player.transform.position);
-        farthestDistanceReached = 0;
+        destinationPos = Vector3Int.FloorToInt(gameObject.transform.position);
+        currentPos = Vector3Int.FloorToInt(gameObject.transform.position);
+        prevPos = Vector3Int.FloorToInt(gameObject.transform.position);
     }
-
 
     void Update()
     {
@@ -55,9 +48,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdatePlayerPosition()
     {
-        if (Vector3Int.FloorToInt(player.transform.position) != currentPos)
+        if (Vector3Int.FloorToInt(gameObject.transform.position) != currentPos)
         {
-            currentPos = Vector3Int.FloorToInt(player.transform.position);
+            currentPos = Vector3Int.FloorToInt(gameObject.transform.position);
         }
     }
     
@@ -108,7 +101,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer(Vector3Int newPosition)
     {
-        player.transform.position = Vector3.MoveTowards(currentPos, newPosition, 1f);
+        // var step = maxDistanceDelta * Time.deltaTime; // calculate distance to move
+        gameObject.transform.position = Vector3.MoveTowards(currentPos, newPosition, maxDistanceDelta);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -120,7 +114,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (other.CompareTag(TagManager.LOG))
         {
-            //log behavior --> parent player to log
+            //log behavior --> parent gameObject to log
             //on movement have to deparent --> maybe OnTriggerExit
         }
         if (other.CompareTag(TagManager.HAZARD))

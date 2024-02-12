@@ -119,7 +119,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4043796396619785908, guid: 7480e1ce5c650504cb93df240861f11c, type: 3}
       propertyPath: m_TagString
-      value: Obstacle
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499527805979373431, guid: 7480e1ce5c650504cb93df240861f11c, type: 3}
+      propertyPath: m_Size.x
+      value: 0.52303207
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499527805979373431, guid: 7480e1ce5c650504cb93df240861f11c, type: 3}
+      propertyPath: m_Size.z
+      value: 0.46628904
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499527805979373431, guid: 7480e1ce5c650504cb93df240861f11c, type: 3}
+      propertyPath: m_Center.x
+      value: 0.0012901425
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499527805979373431, guid: 7480e1ce5c650504cb93df240861f11c, type: 3}
+      propertyPath: m_Center.y
+      value: 0.39999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499527805979373431, guid: 7480e1ce5c650504cb93df240861f11c, type: 3}
+      propertyPath: m_Center.z
+      value: 0.0022258759
+      objectReference: {fileID: 0}
+    - target: {fileID: 5499527805979373431, guid: 7480e1ce5c650504cb93df240861f11c, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7327102116175913287, guid: 7480e1ce5c650504cb93df240861f11c, type: 3}
       propertyPath: m_LocalPosition.x

@@ -10,17 +10,12 @@ public class CarSpawner : MonoBehaviour
     [SerializeField] float maxSpawnTime;
 
     private GameObject car;
-    private ObjectPooler objPooler;
+    [SerializeField] private ObjectPooler objPooler;
 
-    private void Start()
-    {
-        objPooler = GameObject.Find("ObjectPooler").GetComponent<ObjectPooler>();
-    }
-
-    // Start is called before the first frame update
     void Awake()
     {
         StartCoroutine(SpawnCar());
+        objPooler = GetComponentInParent<ObjectPooler>();
     }
 
     IEnumerator SpawnCar()
