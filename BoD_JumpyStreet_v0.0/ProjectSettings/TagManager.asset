@@ -7,6 +7,8 @@ TagManager:
   - Obstacle
   - Hazard
   - Log
+  - Kill Box
+  - Lily Pad
   layers:
   - Default
   - TransparentFX
