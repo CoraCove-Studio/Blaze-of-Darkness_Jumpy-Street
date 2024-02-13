@@ -8,22 +8,31 @@ public class TerrainManager : MonoBehaviour
     [SerializeField] private ObjectPooler objectPooler;
 
     [SerializeField] private List<GameObject> listOfActiveChunks = new();
-    [SerializeField] private int xPositionForNextChunk;
+    [SerializeField] private int zPositionForNextChunk;
 
     private int maxChunks = 4;
 
     private void Start()
     {
-        GenerateStartTerrain();
+        zPositionForNextChunk = ((int)transform.position.z);
+        // GenerateStartTerrain();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            LoadChunk(GetRandomChunkType());
+            LoadChunk(ChunkTypes.WATER);
         }
-        else if (Input.GetKeyDown(KeyCode.H))
+        else if (Input.GetKeyDown(KeyCode.G))
+        {
+            LoadChunk(ChunkTypes.GRASS);
+        }
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            LoadChunk(ChunkTypes.STREET);
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
         {
             OffloadChunk();
         }
@@ -33,7 +42,7 @@ public class TerrainManager : MonoBehaviour
     {
         for (int i = 0; i <= maxChunks; i++)
         {
-            if (i == 0)
+            if (i < 2)
             {
                 LoadChunk(ChunkTypes.GRASS);
             }
@@ -69,7 +78,7 @@ public class TerrainManager : MonoBehaviour
 
     private void PositionChunk(GameObject chunk)
     {
-        Vector3 newPos = new(0, 0, xPositionForNextChunk);
+        Vector3 newPos = new(0, 0, zPositionForNextChunk);
         chunk.transform.position = newPos;
         UpdateNextChunkPosition(chunk);
     }
@@ -77,7 +86,7 @@ public class TerrainManager : MonoBehaviour
     private void UpdateNextChunkPosition(GameObject currentChunk)
     {
         int slicesInLastChunk = currentChunk.GetComponent<Chunk>().NumOfSlices;
-        xPositionForNextChunk += slicesInLastChunk;
+        zPositionForNextChunk += slicesInLastChunk;
     }
 
     private GameObject ShiftChunk()

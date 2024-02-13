@@ -170,7 +170,8 @@ MonoBehaviour:
   listOfGrassChunks: []
   listOfStreetChunks: []
   listOfWaterChunks: []
-  listOfLogs: []
+  listOfShortLogs: []
+  listOfLongLogs: []
   listOfCars: []
   listOfChunkPrefabsGrass:
   - {fileID: 6000739111110104073, guid: 9ce742ab5000e564c8cbbf7e64ea6eb7, type: 3}
@@ -295,6 +296,7 @@ GameObject:
   - component: {fileID: 1325215700}
   - component: {fileID: 1325215699}
   - component: {fileID: 1325215698}
+  - component: {fileID: 1325215701}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -344,8 +346,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 5.8397164
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -369,13 +371,27 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1325215697}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.3907311, y: 0, z: 0, w: 0.9205049}
-  m_LocalPosition: {x: 0, y: 12, z: -5}
+  m_LocalRotation: {x: 0.3420201, y: 0, z: 0, w: 0.9396927}
+  m_LocalPosition: {x: 0, y: 5, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 46, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 40, y: 0, z: 0}
+--- !u!114 &1325215701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325215697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f8275349d57c2343b10a1aa0aee85e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1696652094}
+  speed: 0.65
 --- !u!1 &1652058117
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,7 +423,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectPooler: {fileID: 112729755}
   listOfActiveChunks: []
-  xPositionForNextChunk: 0
+  zPositionForNextChunk: 0
 --- !u!4 &1652058119
 Transform:
   m_ObjectHideFlags: 0
@@ -417,12 +433,17 @@ Transform:
   m_GameObject: {fileID: 1652058117}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1696652094 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7499093330766297602, guid: 15e6e04670e67854fbe46553fc3a4e3b, type: 3}
+  m_PrefabInstance: {fileID: 1941924125}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1750017136
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,9 +535,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5009205981064625489, guid: 15e6e04670e67854fbe46553fc3a4e3b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dc1b7d8e44c4fdc41aee65a1493ffcd8, type: 2}
+    - target: {fileID: 6254586881373096668, guid: 15e6e04670e67854fbe46553fc3a4e3b, type: 3}
+      propertyPath: speed
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 6254586881373096668, guid: 15e6e04670e67854fbe46553fc3a4e3b, type: 3}
       propertyPath: amountToMove
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6254586881373096668, guid: 15e6e04670e67854fbe46553fc3a4e3b, type: 3}
       propertyPath: maxDistanceDelta

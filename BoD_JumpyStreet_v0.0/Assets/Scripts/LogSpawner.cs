@@ -1,42 +1,43 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LogSpawner : MonoBehaviour
 {
-    [SerializeField] Transform spawnPoint;
+    [SerializeField] private float minSpawnTime;
+    [SerializeField] private float maxSpawnTime;
 
-    [SerializeField] float minSpawnTime;
-    [SerializeField] float maxSpawnTime;
-
-    private GameObject log;
-    private ObjectPooler objPooler;
+    [SerializeField] private ObjectPooler objPooler;
 
     // Start is called before the first frame update
-    private void Start()
-    {
-        objPooler = GameObject.Find("ObjectPooler").GetComponent<ObjectPooler>();
-    }
 
     void Awake()
     {
+        objPooler = GetComponentInParent<ObjectPooler>();
         StartCoroutine(SpawnLog());
     }
 
-    IEnumerator SpawnLog()
+    private IEnumerator SpawnLog()
     {
-        //log = objPooler.ReturnLog();
-
-        if (log != null)
+        while (gameObject.activeSelf)
         {
-            //log.transform.position = spawnPoint.position;
-            //log.transform.forward = spawnPoint.forward
-            //log.SetActive(true);
+            GameObject log = objPooler.ReturnLog(GetRandomLogLength());
+            log.transform.parent = transform;
 
-            yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime));
+            if (log != null)
+            {
+                log.transform.SetPositionAndRotation(transform.position, transform.rotation);
+                log.SetActive(true);
+
+                yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime));
+            }
         }
     }
 
-
+    private LogLength GetRandomLogLength()
+    {
+        int randomChoice = Random.Range(0, 2);
+        LogLength result = randomChoice == 0 ? LogLength.SHORT : LogLength.LONG;
+        return result;
+    }
 
 }
