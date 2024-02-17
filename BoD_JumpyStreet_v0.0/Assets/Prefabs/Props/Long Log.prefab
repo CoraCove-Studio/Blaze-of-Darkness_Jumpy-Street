@@ -115,6 +115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2680245080840777345}
   - component: {fileID: 386390857991364471}
+  - component: {fileID: 8758509246496268994}
   m_Layer: 0
   m_Name: Long Log
   m_TagString: Log
@@ -151,3 +152,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+--- !u!65 &8758509246496268994
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5157188038756266485}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 4.0153337}
+  m_Center: {x: 1.1373945e-17, y: 0, z: -0.0031058788}
