@@ -47,8 +47,17 @@ public class GameManager : MonoBehaviour
     public void IncrementPlayerScore()
     {
         playerScore++;
-        if (playerScore > HighScore) { HighScore = playerScore; }
+        if (playerScore > HighScore) 
+        { 
+            HighScore = playerScore;
+            SetHighScore();
+        }
     }
 
+    public void SetHighScore()
+    {
+        PlayerPrefs.SetInt("highScore", HighScore);
+        PlayerPrefs.Save();
+    }
     // the rest of your code here
 }
