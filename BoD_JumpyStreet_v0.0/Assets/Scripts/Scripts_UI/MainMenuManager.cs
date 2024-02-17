@@ -1,7 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -13,13 +13,18 @@ public class MainMenuManager : MonoBehaviour
     private void Awake()
     {
         GameManager.Instance.LoadGameData();
+        UpdateUIScore();
+    }
+
+    private void UpdateUIScore()
+    {
         highScoreCounter.text = GameManager.Instance.HighScore.ToString();
     }
 
     #region button functions
     public void OnClickStartButton()
     {
-        // GameManager load main scene
+        SceneManager.LoadScene(1);
     }
     
     public void OnClickMenuButton(int desiredPanelIndex)
@@ -30,8 +35,15 @@ public class MainMenuManager : MonoBehaviour
         currentPanel = menuPanels[desiredPanelIndex];
     }
 
+    public void ResetScoreButton()
+    {
+        GameManager.Instance.ResetGameData();
+        UpdateUIScore();
+    }
+
     public void OnClickQuitButton()
     {
+        GameManager.Instance.SaveGameData();
         Application.Quit();
     }
 

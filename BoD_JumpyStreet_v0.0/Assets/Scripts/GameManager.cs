@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("highScore", 0);
         PlayerPrefs.Save();
+        HighScore = 0;
     }
 
     public void SaveGameData()

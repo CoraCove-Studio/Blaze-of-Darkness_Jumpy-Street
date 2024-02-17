@@ -16,7 +16,6 @@ public class PlayerMovement : MonoBehaviour
     private bool ableToMove = true;
     private bool onLog = false;
     private Rigidbody rb;
-    [SerializeField] private int farthestDistanceReached = 0;
     [SerializeField] private float speed = 1f;
     [SerializeField] private PlayerZPosition playerZPosition;
 
@@ -102,7 +101,6 @@ public class PlayerMovement : MonoBehaviour
             MovePlayer(destinationPos);
             yield return null;
         }
-        print("while loop done");
         playerZPosition.UpdateCurrentZPosition((int)gameObject.transform.position.z);
         CheckPlayerDistance();
         ableToMove = true;

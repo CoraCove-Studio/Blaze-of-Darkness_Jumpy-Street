@@ -122,6 +122,8 @@ public class ObjectPooler : MonoBehaviour
         else
         {
             log = Instantiate(listOfLogPrefabs[1], transform);
+            Log _ = log.GetComponent<Log>();
+            _.SetObjectPoolerReference(this);
             listOfLongLogs.Add(log);
         }
         log.SetActive(false);
