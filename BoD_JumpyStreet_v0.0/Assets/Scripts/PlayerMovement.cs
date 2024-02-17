@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody>();
         destinationPos = Vector3Int.FloorToInt(transform.position);
         currentPos = Vector3Int.FloorToInt(transform.position);
-        playerZPosition.UpdateCurrentZPosition(currentPos.z);
+        playerZPosition.UpdateCurrentZPosition((int)gameObject.transform.position.z);
     }
 
     void Update()
@@ -41,20 +41,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckPlayerDistance()
     {
-        print("method called");
-        if (currentPos.z >= farthestDistanceReached)
-        {
-            print("distance checked");
-            farthestDistanceReached = currentPos.z;
-            GameManager.Instance.IncrementPlayerScore();
-        }
+        GameManager.Instance.UpdatePlayerScore();
     }
 
     #region input handling
     private void GetInput()
     {
-        // Emma, this is an alternative to your ProcessInput() method
-        // that I propose. It uses this method and the two beneath it.
         if (ableToMove && Input.anyKeyDown)
         {
             UpdateCurrentPosition();
@@ -111,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         print("while loop done");
-        playerZPosition.UpdateCurrentZPosition(currentPos.z);
+        playerZPosition.UpdateCurrentZPosition((int)gameObject.transform.position.z);
         CheckPlayerDistance();
         ableToMove = true;
     }

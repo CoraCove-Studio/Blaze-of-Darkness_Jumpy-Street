@@ -15,24 +15,24 @@ public class TerrainManager : MonoBehaviour
     private void Start()
     {
         zPositionForNextChunk = ((int)transform.position.z);
-        // GenerateStartTerrain();
+        GenerateStartTerrain();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             LoadChunk(ChunkTypes.WATER);
         }
-        else if (Input.GetKeyDown(KeyCode.G))
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             LoadChunk(ChunkTypes.GRASS);
         }
-        else if (Input.GetKeyDown(KeyCode.S))
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             LoadChunk(ChunkTypes.STREET);
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             OffloadChunk();
         }

@@ -16,13 +16,13 @@ public class HighScoreUpdater : MonoBehaviour
     }
     public void DisplayHighScore()
     {
-        int highScore = PlayerPrefs.GetInt("highScore");
+        int highScore = GameManager.Instance.HighScore;
         highScoreCounter.text = highScore.ToString();
     }
 
     public void DisplayPlayerScore()
     {
-        playerScoreCounter.text = GameManager.Instance.playerScore.ToString();
+        playerScoreCounter.text = GameManager.Instance.PlayerScore.ToString();
     }
     public void AddSelfToGameManager()
     {

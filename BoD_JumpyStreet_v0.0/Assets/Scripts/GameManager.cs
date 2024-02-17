@@ -36,36 +36,52 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    [SerializeField] public int playerScore = 0;
+    [SerializeField] private int _playerScore = 0;
     [SerializeField] private int highScore = 0;
 
     public HighScoreUpdater highScoreUpdater;
     public PlayerZPosition playerZPosition;
 
+    #region Getters/Setters
+    public int PlayerScore
+    {
+        get => _playerScore;
+        private set => _playerScore = value;
+    }
     public int HighScore
     {
         get => highScore;
         private set => highScore = value;
     }
+    #endregion
 
-    public void IncrementPlayerScore()
+    #region Data Methods
+    public void LoadGameData()
     {
-        playerScore = playerZPosition.ZPosition;
-        print("incremented score)");
-        if (playerScore > HighScore) 
-        { 
-            HighScore = playerScore;
-            SetHighScore();
-            print("set high score");
-        }
-        DisplayScores();
+        HighScore = PlayerPrefs.GetInt("highScore", 0);
     }
 
-    public void SetHighScore()
+    public void ResetGameData()
+    {
+        PlayerPrefs.SetInt("highScore", 0);
+        PlayerPrefs.Save();
+    }
+
+    public void SaveGameData()
     {
         PlayerPrefs.SetInt("highScore", HighScore);
         PlayerPrefs.Save();
-        print("saved high score");
+    }
+    #endregion
+
+    public void UpdatePlayerScore()
+    {
+        PlayerScore = playerZPosition.ZPosition;
+        if (PlayerScore > HighScore) 
+        { 
+            HighScore = PlayerScore;
+        }
+        DisplayScores();
     }
     
     private void DisplayScores()

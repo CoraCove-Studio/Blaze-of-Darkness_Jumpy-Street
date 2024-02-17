@@ -7,11 +7,16 @@ public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> menuPanels = new();
     [SerializeField] private GameObject currentPanel;
+    [SerializeField] private TextMeshProUGUI highScoreCounter;
 
 
+    private void Awake()
+    {
+        GameManager.Instance.LoadGameData();
+        highScoreCounter.text = GameManager.Instance.HighScore.ToString();
+    }
 
     #region button functions
-
     public void OnClickStartButton()
     {
         // GameManager load main scene
