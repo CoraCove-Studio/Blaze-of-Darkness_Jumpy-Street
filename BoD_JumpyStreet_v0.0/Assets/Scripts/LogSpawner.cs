@@ -14,42 +14,24 @@ public class LogSpawner : MonoBehaviour
     void Awake()
     {
         objPooler = GetComponentInParent<ObjectPooler>();
-        activeCoroutine = StartCoroutine(Test());
     }
 
-    private IEnumerator Test()
+    private void OnEnable()
     {
-        print("coroutine started");
-        yield return new WaitForSecondsRealtime(2);
-        print("coroutine ended");
-    }
-
-    void OnDestroy()
-    {
-        Debug.Log("Destroyed");
+        StartCoroutine(SpawnLog());
     }
 
     private IEnumerator SpawnLog()
     {
-        print("LogSpawner Coroutine started.");
-        print(gameObject.activeSelf);
         while (gameObject.activeSelf)
         {
-            print("Log spawner Coroutine while loop started.");
-            print(Time.timeScale);
-
-            yield return new WaitForSeconds(2); // why the fuck isn't this ending
-
-            print("Requesting a new log.");
-
+            yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime));
             GameObject log = objPooler.ReturnLog(GetRandomLogLength());
-            print("Got a new log. Object name is " + log.name);
             if (log != null)
             {
                 log.transform.parent = transform;
                 log.transform.SetPositionAndRotation(transform.position, transform.rotation);
                 log.SetActive(true);
-                print("Log spawned, position set and active.");
             }
 
             yield return null;
