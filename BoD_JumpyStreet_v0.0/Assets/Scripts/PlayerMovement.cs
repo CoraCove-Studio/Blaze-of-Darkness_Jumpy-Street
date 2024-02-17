@@ -14,8 +14,11 @@ public class PlayerMovement : MonoBehaviour
     private Vector3Int destinationPos;
     private Vector3Int currentPos;
     private bool ableToMove = true;
+    private bool onLog = false;
+    private Rigidbody rb;
     [SerializeField] private int farthestDistanceReached = 0;
     [SerializeField] private float speed = 1f;
+    [SerializeField] private PlayerZPosition playerZPosition;
 
     [Header("Key Codes")]
     [SerializeField] private KeyCode forward;
@@ -25,8 +28,10 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        rb = gameObject.GetComponent<Rigidbody>();
         destinationPos = Vector3Int.FloorToInt(transform.position);
         currentPos = Vector3Int.FloorToInt(transform.position);
+        playerZPosition.UpdateCurrentZPosition(currentPos.z);
     }
 
     void Update()
@@ -36,8 +41,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckPlayerDistance()
     {
-        if (currentPos.z > farthestDistanceReached)
+        print("method called");
+        if (currentPos.z >= farthestDistanceReached)
         {
+            print("distance checked");
             farthestDistanceReached = currentPos.z;
             GameManager.Instance.IncrementPlayerScore();
         }
@@ -103,6 +110,8 @@ public class PlayerMovement : MonoBehaviour
             MovePlayer(destinationPos);
             yield return null;
         }
+        print("while loop done");
+        playerZPosition.UpdateCurrentZPosition(currentPos.z);
         CheckPlayerDistance();
         ableToMove = true;
     }
@@ -116,6 +125,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (other.CompareTag(TagManager.LOG))
         {
+            onLog = true;
             gameObject.transform.SetParent(other.gameObject.transform);
         }
         if (other.CompareTag(TagManager.HAZARD))
@@ -129,6 +139,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.CompareTag(TagManager.LOG))
         {
+            onLog = false;
             gameObject.transform.SetParent(null);
         }
     }

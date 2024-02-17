@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -35,8 +36,11 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    [SerializeField] private int playerScore = 0;
+    [SerializeField] public int playerScore = 0;
     [SerializeField] private int highScore = 0;
+
+    public HighScoreUpdater highScoreUpdater;
+    public PlayerZPosition playerZPosition;
 
     public int HighScore
     {
@@ -46,18 +50,30 @@ public class GameManager : MonoBehaviour
 
     public void IncrementPlayerScore()
     {
-        playerScore++;
+        playerScore = playerZPosition.ZPosition;
+        print("incremented score)");
         if (playerScore > HighScore) 
         { 
             HighScore = playerScore;
             SetHighScore();
+            print("set high score");
         }
+        DisplayScores();
     }
 
     public void SetHighScore()
     {
         PlayerPrefs.SetInt("highScore", HighScore);
         PlayerPrefs.Save();
+        print("saved high score");
     }
-    // the rest of your code here
+    
+    private void DisplayScores()
+    {
+        if (highScoreUpdater != null)
+        {
+            highScoreUpdater.DisplayHighScore();
+            highScoreUpdater.DisplayPlayerScore();
+        }
+    }
 }

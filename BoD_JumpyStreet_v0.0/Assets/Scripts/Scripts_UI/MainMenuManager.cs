@@ -7,7 +7,7 @@ public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] private List<GameObject> menuPanels = new();
     [SerializeField] private GameObject currentPanel;
-    [SerializeField] private TextMeshProUGUI highScoreCounter;
+
 
 
     #region button functions
@@ -31,13 +31,5 @@ public class MainMenuManager : MonoBehaviour
     }
 
     #endregion
-    private void Update()
-    {
-        DisplayHighScore();
-    }
-    public void DisplayHighScore()
-    {
-        int highScore = PlayerPrefs.GetInt("highScore");
-        highScoreCounter.text = highScore.ToString();
-    }
+
 }
