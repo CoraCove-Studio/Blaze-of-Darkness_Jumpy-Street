@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        ProcessInput();
+        GetInput();
     }
 
     private void CheckPlayerDistance()
@@ -40,34 +40,6 @@ public class PlayerMovement : MonoBehaviour
         {
             farthestDistanceReached = currentPos.z;
             GameManager.Instance.IncrementPlayerScore();
-        }
-    }
-    private void ProcessInput()
-    {
-        // I don't like this function, it needs more helper methods
-        if (Input.GetKeyDown(forward) && ableToMove)
-        {
-            currentPos = Vector3Int.FloorToInt(gameObject.transform.position);
-            destinationPos = new Vector3Int(currentPos.x, currentPos.y, (currentPos.z + amountToMove));
-            StartCoroutine(MovePlayerCoroutine());
-        }
-        else if (Input.GetKeyDown(backward) && ableToMove)
-        {
-            currentPos = Vector3Int.FloorToInt(gameObject.transform.position);
-            destinationPos = new Vector3Int(currentPos.x, currentPos.y, (currentPos.z - amountToMove));
-            StartCoroutine(MovePlayerCoroutine());
-        }
-        else if (Input.GetKeyDown(left) && ableToMove)
-        {
-            currentPos = Vector3Int.FloorToInt(gameObject.transform.position);
-            destinationPos = new Vector3Int((currentPos.x - amountToMove), currentPos.y, currentPos.z);
-            StartCoroutine(MovePlayerCoroutine());
-        }
-        else if (Input.GetKeyDown(right) && ableToMove)
-        {
-            currentPos = Vector3Int.FloorToInt(gameObject.transform.position);
-            destinationPos = new Vector3Int((currentPos.x + amountToMove), currentPos.y, currentPos.z);
-            StartCoroutine(MovePlayerCoroutine());
         }
     }
 
@@ -144,13 +116,20 @@ public class PlayerMovement : MonoBehaviour
         }
         if (other.CompareTag(TagManager.LOG))
         {
-            //log behavior --> parent gameObject to log
-            //on movement have to deparent --> maybe OnTriggerExit
+            gameObject.transform.SetParent(other.gameObject.transform);
         }
         if (other.CompareTag(TagManager.HAZARD))
         {
             //for cars and invisible boundary colliders
             //ends game
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag(TagManager.LOG))
+        {
+            gameObject.transform.SetParent(null);
         }
     }
 }
