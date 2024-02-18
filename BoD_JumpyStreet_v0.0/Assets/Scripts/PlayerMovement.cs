@@ -1,20 +1,15 @@
 using System.Collections;
 using UnityEngine;
-
-/* TO DO
- * parent gameObject to log
- * collision handler 
- */
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
-
     [Header("Values")]
     [SerializeField] private int amountToMove;
+    private int farthestDistanceReached = 0;
     private Vector3Int destinationPos;
     private Vector3Int currentPos;
     private bool ableToMove = true;
-    private bool onLog = false;
     private Rigidbody rb;
     [SerializeField] private float speed = 1f;
     [SerializeField] private PlayerZPosition playerZPosition;
@@ -46,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
     #region input handling
     private void GetInput()
     {
-        if (ableToMove && Input.anyKeyDown)
+        if (ableToMove && Input.anyKeyDown) 
         {
             UpdateCurrentPosition();
             Vector3Int direction = Vector3Int.zero;
@@ -55,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 direction = Vector3Int.forward;
             }
-            else if (Input.GetKeyDown(backward))
+            else if (Input.GetKeyDown(backward) && CanPlayerMoveBackward()) //add conditional to block player from moving back if farthestDistance
             {
                 direction = Vector3Int.back;
             }
@@ -84,6 +79,20 @@ public class PlayerMovement : MonoBehaviour
     {
         destinationPos = currentPos + direction * amountToMove;
         StartCoroutine(MovePlayerCoroutine());
+    }
+
+    private bool CanPlayerMoveBackward()
+    {
+        int difference = farthestDistanceReached - currentPos.z;
+        if(difference <= 6)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
     }
     #endregion
 
@@ -116,13 +125,13 @@ public class PlayerMovement : MonoBehaviour
         }
         if (other.CompareTag(TagManager.LOG))
         {
-            onLog = true;
             gameObject.transform.SetParent(other.gameObject.transform);
         }
         if (other.CompareTag(TagManager.HAZARD))
         {
-            //for cars and invisible boundary colliders
-            //ends game
+            GameManager.Instance.ResetPlayerScore();
+            GameManager.Instance.SaveGameData();
+            SceneManager.LoadScene(0);
         }
     }
 
@@ -130,20 +139,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.CompareTag(TagManager.LOG))
         {
-            onLog = false;
             gameObject.transform.SetParent(null);
         }
     }
 
     void CheckForWaterBelow()
     {
-        // The starting point of the ray is the player's position
         Vector3 rayStart = transform.position;
-
-        // The direction of the ray is straight down
         Vector3 rayDirection = Vector3.down;
-
-        // The length of the ray
         float rayLength = 1f;
 
         // Perform the raycast

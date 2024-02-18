@@ -77,12 +77,17 @@ public class GameManager : MonoBehaviour
 
     public void UpdatePlayerScore()
     {
+        //likely the source of the score increasing when player walks over water
         PlayerScore = playerZPosition.ZPosition;
         if (PlayerScore > HighScore) 
         { 
             HighScore = PlayerScore;
         }
         DisplayScores();
+    }
+    public void ResetPlayerScore()
+    {
+        PlayerScore = 0;
     }
     
     private void DisplayScores()
