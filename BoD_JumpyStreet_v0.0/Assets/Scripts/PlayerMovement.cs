@@ -81,6 +81,18 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine(MovePlayerCoroutine());
     }
 
+    private bool CanPlayerMoveBackward()
+    {
+        int difference = farthestDistanceReached - currentPos.z;
+        if(difference <= 6)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     #endregion
 
     private void MovePlayer(Vector3Int newPosition)
