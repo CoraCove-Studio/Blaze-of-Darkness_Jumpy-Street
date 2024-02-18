@@ -9,16 +9,23 @@ public class TerrainManager : MonoBehaviour
 
     [SerializeField] private List<GameObject> listOfActiveChunks = new();
     [SerializeField] private int zPositionForNextChunk;
+    [SerializeField] private PlayerZPosition playerZ;
 
-    private int maxChunks = 4;
+    private readonly int maxChunks = 4;
+    private readonly int buffer = 10;
 
     private void Start()
     {
-        zPositionForNextChunk = ((int)transform.position.z);
+        zPositionForNextChunk = (int)transform.position.z;
         GenerateStartTerrain();
     }
 
     private void Update()
+    {
+        DevKeys();
+    }
+
+    private void DevKeys()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -52,6 +59,20 @@ public class TerrainManager : MonoBehaviour
                 LoadChunk(GetRandomChunkType());
             }
         }
+    }
+
+    public void CheckChunkBuffer(int playerZPos)
+    {
+        if (playerZPos >= zPositionForNextChunk - buffer)
+        {
+            CycleChunks();
+        }
+    }
+
+    private void CycleChunks()
+    {
+        OffloadChunk();
+        LoadChunk(GetRandomChunkType());
     }
 
     private void LoadChunk(ChunkTypes chunkType)

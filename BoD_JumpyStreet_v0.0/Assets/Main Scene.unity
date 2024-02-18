@@ -956,6 +956,7 @@ MonoBehaviour:
   objectPooler: {fileID: 112729755}
   listOfActiveChunks: []
   zPositionForNextChunk: 0
+  playerZ: {fileID: 1696652101}
 --- !u!4 &1652058119
 Transform:
   m_ObjectHideFlags: 0
@@ -1378,6 +1379,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 8556283397674352708, guid: 15e6e04670e67854fbe46553fc3a4e3b, type: 3}
+      propertyPath: terrainManager
+      value: 
+      objectReference: {fileID: 1652058118}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
