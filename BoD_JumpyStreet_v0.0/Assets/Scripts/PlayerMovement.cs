@@ -73,6 +73,11 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateCurrentPosition()
     {
         currentPos = Vector3Int.FloorToInt(gameObject.transform.position);
+        if (currentPos.z > farthestDistanceReached)
+        {
+            farthestDistanceReached = currentPos.z + 1;
+            print(farthestDistanceReached);
+        }
     }
 
     private void UpdateDestinationAndMove(Vector3Int direction)

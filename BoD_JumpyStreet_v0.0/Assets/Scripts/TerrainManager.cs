@@ -1,5 +1,3 @@
-using JetBrains.Annotations;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,8 +9,8 @@ public class TerrainManager : MonoBehaviour
     [SerializeField] private int zPositionForNextChunk;
     [SerializeField] private PlayerZPosition playerZ;
 
-    private readonly int maxChunks = 4;
-    private readonly int buffer = 10;
+    private readonly int maxChunks = 6;
+    private readonly int buffer = 15;
 
     private void Start()
     {
@@ -49,13 +47,12 @@ public class TerrainManager : MonoBehaviour
     {
         for (int i = 0; i <= maxChunks; i++)
         {
-            if (i < 2)
+            if (i < 3)
             {
                 LoadChunk(ChunkTypes.GRASS);
             }
             else
             {
-                // TODO: Make random type
                 LoadChunk(GetRandomChunkType());
             }
         }

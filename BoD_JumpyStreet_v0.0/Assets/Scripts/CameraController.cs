@@ -4,7 +4,7 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] private GameObject target;
     private Vector3 desiredPos;
-    private Vector3 offset = new(0, 5, -4);
+    [SerializeField] private Vector3 offset = new(0, 5, -4);
     [SerializeField] private float speed = 0.65f;
     private Vector3 velocity = Vector3.zero;
 
