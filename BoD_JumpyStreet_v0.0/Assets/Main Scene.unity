@@ -1350,6 +1350,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: dc1b7d8e44c4fdc41aee65a1493ffcd8, type: 2}
+    - target: {fileID: 5814508768255829890, guid: 15e6e04670e67854fbe46553fc3a4e3b, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6254586881373096668, guid: 15e6e04670e67854fbe46553fc3a4e3b, type: 3}
       propertyPath: speed
       value: 7
@@ -1369,6 +1373,10 @@ PrefabInstance:
     - target: {fileID: 7499093330766297602, guid: 15e6e04670e67854fbe46553fc3a4e3b, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7499093330766297602, guid: 15e6e04670e67854fbe46553fc3a4e3b, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

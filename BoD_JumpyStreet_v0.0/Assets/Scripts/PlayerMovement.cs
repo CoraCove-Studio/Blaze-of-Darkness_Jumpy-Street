@@ -104,6 +104,7 @@ public class PlayerMovement : MonoBehaviour
         playerZPosition.UpdateCurrentZPosition((int)gameObject.transform.position.z);
         CheckPlayerDistance();
         ableToMove = true;
+        CheckForWaterBelow();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -131,6 +132,38 @@ public class PlayerMovement : MonoBehaviour
         {
             onLog = false;
             gameObject.transform.SetParent(null);
+        }
+    }
+
+    void CheckForWaterBelow()
+    {
+        // The starting point of the ray is the player's position
+        Vector3 rayStart = transform.position;
+
+        // The direction of the ray is straight down
+        Vector3 rayDirection = Vector3.down;
+
+        // The length of the ray
+        float rayLength = 1f;
+
+        // Perform the raycast
+        if (Physics.Raycast(rayStart, rayDirection, out RaycastHit hitInfo, rayLength))
+        {
+            // Check if the collider of the hit object has the tag "water"
+            if (hitInfo.collider.CompareTag(TagManager.WATER))
+            {
+                Debug.Log("Hit water!");
+                rb.isKinematic = false;
+                rb.useGravity = true;
+            }
+            else
+            {
+                Debug.Log("Did not hit water, hit: " + hitInfo.collider.name);
+            }
+        }
+        else
+        {
+            Debug.Log("Raycast did not hit anything.");
         }
     }
 }

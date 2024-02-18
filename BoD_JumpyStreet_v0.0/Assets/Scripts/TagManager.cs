@@ -9,4 +9,5 @@ public class TagManager
     public const string LOG = "Log";
     public const string KILL_BOX = "Kill Box";
     public const string LILY_PAD = "Lily Pad";
+    public const string WATER = "Water";
 }

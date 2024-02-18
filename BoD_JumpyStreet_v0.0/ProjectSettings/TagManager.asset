@@ -9,6 +9,7 @@ TagManager:
   - Log
   - Kill Box
   - Lily Pad
+  - Water
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Player
   - 
   - 
   - 

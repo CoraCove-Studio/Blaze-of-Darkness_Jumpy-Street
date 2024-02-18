@@ -593,9 +593,9 @@ GameObject:
   - component: {fileID: 3238522071081697585}
   - component: {fileID: 2014095567686761794}
   - component: {fileID: 5128491426158334426}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Water Graphic
-  m_TagString: Untagged
+  m_TagString: Water
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4599,7 +4599,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1378682447819744440}
-  - component: {fileID: 176189539322122589}
   - component: {fileID: 6579181988184974748}
   m_Layer: 0
   m_Name: Water (R to L)
@@ -4633,27 +4632,6 @@ Transform:
   - {fileID: 1868111929393346339}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &176189539322122589
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7308198255789098646}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6579181988184974748
 MonoBehaviour:
   m_ObjectHideFlags: 0
