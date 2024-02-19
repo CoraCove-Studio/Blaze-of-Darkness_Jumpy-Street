@@ -4,34 +4,46 @@ using UnityEngine;
 
 public class CarSpawner : MonoBehaviour
 {
-    [SerializeField] Transform spawnPoint;
+    [SerializeField] private float minSpawnTime = 2f;
+    [SerializeField] private float maxSpawnTime = 4f;
 
-    [SerializeField] float minSpawnTime;
-    [SerializeField] float maxSpawnTime;
-
-    private GameObject car;
     [SerializeField] private ObjectPooler objPooler;
+    [SerializeField] private Coroutine activeCoroutine;
+
+    // Start is called before the first frame update
 
     void Awake()
     {
-        StartCoroutine(SpawnCar());
         objPooler = GetComponentInParent<ObjectPooler>();
     }
 
-    IEnumerator SpawnCar()
+    private void OnEnable()
     {
-        //car = objPooler.ReturnCar();
+        StartCoroutine(SpawnCar());
+    }
 
-        if (car != null)
+    private IEnumerator SpawnCar()
+    {
+        while (gameObject.activeSelf)
         {
-            //car.transform.position = spawnPoint.position;
-            //car.transform.forward = spawnPoint.forward
-            //car.SetActive(true);
-
             yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime));
+            GameObject car = objPooler.ReturnCar();
+            if (car != null)
+            {
+                car.transform.parent = transform;
+                car.transform.SetPositionAndRotation(transform.position, transform.rotation);
+                car.SetActive(true);
+            }
+
+            yield return null;
         }
     }
 
-
+    //private LogLength GetRandomLogLength()
+    //{
+    //    int randomChoice = Random.Range(0, 2);
+    //    LogLength result = randomChoice == 0 ? LogLength.SHORT : LogLength.LONG;
+    //    return result;
+    //}
 
 }
