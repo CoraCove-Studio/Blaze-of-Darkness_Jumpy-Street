@@ -14,6 +14,7 @@ public class MainMenuManager : MonoBehaviour
     {
         GameManager.Instance.LoadGameData();
         UpdateUIScore();
+        AudioManager.instance.PlayMusic("MainMenu");
     }
 
     private void UpdateUIScore()

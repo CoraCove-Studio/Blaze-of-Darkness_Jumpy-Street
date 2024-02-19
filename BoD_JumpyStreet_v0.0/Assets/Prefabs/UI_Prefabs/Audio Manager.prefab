@@ -46,7 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c854f35555edcd94b80c76c026adf58f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicSounds: []
+  musicSounds:
+  - name: MainMenu
+    clip: {fileID: 8300000, guid: 2989e777300780842bd3219661275c3d, type: 3}
   sfxSounds: []
   musicSource: {fileID: 2938346574734152692}
   sfxSource: {fileID: 1324906667954946676}
