@@ -190,7 +190,7 @@ MonoBehaviour:
   - {fileID: 5157188038756266485, guid: cfab3941d98523f499dc9c488b5a1331, type: 3}
   - {fileID: 511613455562638544, guid: 2f5051cd8a40378418c05d05bb3f03a3, type: 3}
   listOfCarPrefabs:
-  - {fileID: 4919346278203288431, guid: 605a3eaf38c55bf4e8e384d6472749ce, type: 3}
+  - {fileID: 7070477561319815170, guid: 2011c24c7f39ccd46b35d47ba96a39f5, type: 3}
 --- !u!1 &123347309
 GameObject:
   m_ObjectHideFlags: 0
@@ -923,6 +923,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1696652094}
+  offset: {x: 0, y: 5, z: -4}
   speed: 0.65
 --- !u!1001 &1453992505
 PrefabInstance:

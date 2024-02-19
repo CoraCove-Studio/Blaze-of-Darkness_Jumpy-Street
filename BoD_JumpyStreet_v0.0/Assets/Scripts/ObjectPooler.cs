@@ -136,7 +136,8 @@ public class ObjectPooler : MonoBehaviour
     public GameObject ReturnCar()
     {
         GameObject car;
-            car = ReturnInactiveObject(listOfShortLogs);
+
+        car = ReturnInactiveObject(listOfCars);
 
         if (car == null)
         {
@@ -149,10 +150,10 @@ public class ObjectPooler : MonoBehaviour
     {
         GameObject car;
 
-            car = Instantiate(listOfLogPrefabs[0], transform);
+            car = Instantiate(listOfCarPrefabs[0], transform);
             Car _ = car.GetComponent<Car>();
             _.SetObjectPoolerReference(this);
-            listOfShortLogs.Add(car);
+            listOfCars.Add(car);
 
         car.SetActive(false);
         return car;

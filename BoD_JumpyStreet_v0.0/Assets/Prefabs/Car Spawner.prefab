@@ -44,7 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e0d2615ae0b32747be4b429122ef37c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 5151778772548046010}
   minSpawnTime: 1
-  maxSpawnTime: 2
+  maxSpawnTime: 6
   objPooler: {fileID: 0}
