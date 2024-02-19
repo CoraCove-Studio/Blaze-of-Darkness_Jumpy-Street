@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3Int destinationPos;
     private Vector3Int currentPos;
     private bool ableToMove = true;
+    [SerializeField] private bool overWater = false;
     private Rigidbody rb;
     [SerializeField] private float speed = 1f;
     [SerializeField] private PlayerZPosition playerZPosition;
@@ -35,7 +36,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckPlayerDistance()
     {
-        GameManager.Instance.UpdatePlayerScore();
+        if (!overWater)
+        {
+            GameManager.Instance.UpdatePlayerScore();
+        }
     }
 
     #region input handling
@@ -115,9 +119,9 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         playerZPosition.UpdateCurrentZPosition((int)gameObject.transform.position.z);
+        CheckForWaterBelow();
         CheckPlayerDistance();
         ableToMove = true;
-        CheckForWaterBelow();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -162,6 +166,7 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log("Hit water!");
                 rb.isKinematic = false;
                 rb.useGravity = true;
+                overWater = true;
             }
             else
             {
