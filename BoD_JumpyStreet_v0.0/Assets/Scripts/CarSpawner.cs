@@ -38,12 +38,4 @@ public class CarSpawner : MonoBehaviour
             yield return null;
         }
     }
-
-    //private LogLength GetRandomLogLength()
-    //{
-    //    int randomChoice = Random.Range(0, 2);
-    //    LogLength result = randomChoice == 0 ? LogLength.SHORT : LogLength.LONG;
-    //    return result;
-    //}
-
 }

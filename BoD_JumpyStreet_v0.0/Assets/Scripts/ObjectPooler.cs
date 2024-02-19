@@ -133,9 +133,29 @@ public class ObjectPooler : MonoBehaviour
     #endregion
 
     #region car methods
-    public void ReturnCar()
+    public GameObject ReturnCar()
     {
+        GameObject car;
+            car = ReturnInactiveObject(listOfShortLogs);
 
+        if (car == null)
+        {
+            car = GetNewCar();
+        }
+        return car;
+    }
+
+    private GameObject GetNewCar()
+    {
+        GameObject car;
+
+            car = Instantiate(listOfLogPrefabs[0], transform);
+            Car _ = car.GetComponent<Car>();
+            _.SetObjectPoolerReference(this);
+            listOfShortLogs.Add(car);
+
+        car.SetActive(false);
+        return car;
     }
 
     #endregion
