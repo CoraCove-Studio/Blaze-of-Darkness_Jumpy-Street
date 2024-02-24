@@ -5,6 +5,10 @@ public class LogSpawner : MonoBehaviour
 {
     [SerializeField] private float minSpawnTime = 2f;
     [SerializeField] private float maxSpawnTime = 4f;
+    [SerializeField] private int minSpeed = 2;
+    [SerializeField] private int maxSpeed = 5;
+
+    private float laneSpeed;
 
     [SerializeField] private ObjectPooler objPooler;
     [SerializeField] private Coroutine activeCoroutine;
@@ -14,6 +18,7 @@ public class LogSpawner : MonoBehaviour
     void Awake()
     {
         objPooler = GetComponentInParent<ObjectPooler>();
+        laneSpeed = DetermineLaneSpeed(minSpeed, maxSpeed);
     }
 
     private void OnEnable()
@@ -21,17 +26,24 @@ public class LogSpawner : MonoBehaviour
         StartCoroutine(SpawnLog());
     }
 
+    private float DetermineLaneSpeed(int min, int max)
+    {
+        float speed = Random.Range(min, max);
+        return speed;
+    }
     private IEnumerator SpawnLog()
     {
         while (gameObject.activeSelf)
         {
             yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime));
-            GameObject log = objPooler.ReturnLog(GetRandomLogLength());
-            if (log != null)
+            GameObject logObject = objPooler.ReturnLog(GetRandomLogLength());
+            if (logObject != null)
             {
-                log.transform.parent = transform;
-                log.transform.SetPositionAndRotation(transform.position, transform.rotation);
-                log.SetActive(true);
+                logObject.transform.parent = transform;
+                logObject.transform.SetPositionAndRotation(transform.position, transform.rotation);
+                Log log = logObject.GetComponent<Log>();
+                log.SetSpeed(laneSpeed);
+                logObject.SetActive(true);
             }
 
             yield return null;

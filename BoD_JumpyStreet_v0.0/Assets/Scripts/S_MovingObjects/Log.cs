@@ -25,4 +25,9 @@ public class Log : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
+    public void SetSpeed(float speedToSet)
+    {
+        speed = speedToSet;
+    }
 }
