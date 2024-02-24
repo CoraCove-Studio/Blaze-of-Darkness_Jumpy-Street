@@ -139,9 +139,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cef77f8d91181645a54a00ea41eaed5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerZPosition: {fileID: 0}
+  model: {fileID: 173277078166900571}
   amountToMove: 10
   speed: 1
-  playerZPosition: {fileID: 0}
+  overWater: 0
   forward: 119
   backward: 115
   left: 97
@@ -233,6 +235,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4778406bd4cabfa45ac21a3f48a73ce0, type: 3}
+--- !u!1 &173277078166900571 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4778406bd4cabfa45ac21a3f48a73ce0, type: 3}
+  m_PrefabInstance: {fileID: 1055798637253505546}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &660984854953547233 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4778406bd4cabfa45ac21a3f48a73ce0, type: 3}

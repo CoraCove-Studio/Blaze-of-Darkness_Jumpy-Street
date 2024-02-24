@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Values")]
     [SerializeField] private PlayerZPosition playerZPosition;
+    [SerializeField] private GameObject model;
     [SerializeField] private int amountToMove;
     [SerializeField] private float speed = 1f;
     [SerializeField] private bool overWater = false;
@@ -115,8 +116,8 @@ public class PlayerMovement : MonoBehaviour
         Vector3 movementDirection = (newPosition - transform.position).normalized;
         if (movementDirection != Vector3.zero) // Prevent LookRotation from creating errors with a zero vector
         {
-            Quaternion targetRotation = Quaternion.LookRotation(new Vector3(movementDirection.x, 0, movementDirection.z));
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            Quaternion targetRotation = Quaternion.LookRotation(new Vector3(-movementDirection.x, 0, -movementDirection.z));
+            model.transform.rotation =  Quaternion.RotateTowards(model.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
     }
 
