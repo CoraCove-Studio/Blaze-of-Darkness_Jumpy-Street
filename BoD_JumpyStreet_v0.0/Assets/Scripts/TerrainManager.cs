@@ -9,8 +9,8 @@ public class TerrainManager : MonoBehaviour
     [SerializeField] private int zPositionForNextChunk;
     [SerializeField] private PlayerZPosition playerZ;
 
-    private readonly int maxChunks = 6;
-    private readonly int buffer = 15;
+    private readonly int maxChunks = 12;
+    private readonly int buffer = 24;
 
     private void Start()
     {
