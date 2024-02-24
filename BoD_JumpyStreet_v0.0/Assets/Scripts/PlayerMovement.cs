@@ -5,15 +5,17 @@ using UnityEngine.SceneManagement;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Values")]
+    [SerializeField] private PlayerZPosition playerZPosition;
     [SerializeField] private int amountToMove;
+    [SerializeField] private float speed = 1f;
+    [SerializeField] private bool overWater = false;
+
     private int farthestDistanceReached = 0;
+    private readonly float rotationSpeed = 1250f;
+    private bool ableToMove = true;
     private Vector3Int destinationPos;
     private Vector3Int currentPos;
-    private bool ableToMove = true;
-    [SerializeField] private bool overWater = false;
     private Rigidbody rb;
-    [SerializeField] private float speed = 1f;
-    [SerializeField] private PlayerZPosition playerZPosition;
 
     [Header("Key Codes")]
     [SerializeField] private KeyCode forward;
@@ -80,7 +82,6 @@ public class PlayerMovement : MonoBehaviour
         if (currentPos.z > farthestDistanceReached)
         {
             farthestDistanceReached = currentPos.z + 1;
-            print(farthestDistanceReached);
         }
     }
 
@@ -104,10 +105,19 @@ public class PlayerMovement : MonoBehaviour
     }
     #endregion
 
-    private void MovePlayer(Vector3Int newPosition)
+    private void MovePlayer(Vector3 newPosition)
     {
-        var step = speed * Time.deltaTime; // calculate distance to move
+        // Calculate distance to move
+        var step = speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, newPosition, step);
+
+        // Calculate the direction vector and create a rotation towards it
+        Vector3 movementDirection = (newPosition - transform.position).normalized;
+        if (movementDirection != Vector3.zero) // Prevent LookRotation from creating errors with a zero vector
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(new Vector3(movementDirection.x, 0, movementDirection.z));
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
     }
 
     private IEnumerator MovePlayerCoroutine()
@@ -129,7 +139,6 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag(TagManager.OBSTACLE))
         {
             destinationPos = currentPos;
-            print("found tree");
         }
         if (other.CompareTag(TagManager.LOG))
         {
@@ -151,7 +160,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void CheckForWaterBelow()
+    private void CheckForWaterBelow()
     {
         Vector3 rayStart = transform.position;
         Vector3 rayDirection = Vector3.down;
