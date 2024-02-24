@@ -6,6 +6,10 @@ public class CarSpawner : MonoBehaviour
 {
     [SerializeField] private float minSpawnTime = 2f;
     [SerializeField] private float maxSpawnTime = 4f;
+    [SerializeField] private int minSpeed = 6;
+    [SerializeField] private int maxSpeed = 10;
+
+    [SerializeField] private int laneSpeed;
 
     [SerializeField] private ObjectPooler objPooler;
     [SerializeField] private Coroutine activeCoroutine;
@@ -15,6 +19,7 @@ public class CarSpawner : MonoBehaviour
     void Awake()
     {
         objPooler = GetComponentInParent<ObjectPooler>();
+        laneSpeed = DetermineLaneSpeed(minSpeed, maxSpeed);
     }
 
     private void OnEnable()
@@ -22,17 +27,25 @@ public class CarSpawner : MonoBehaviour
         StartCoroutine(SpawnCar());
     }
 
+    private int DetermineLaneSpeed(int min, int max)
+    {
+        int speed = Random.Range(min, max);
+        return speed;
+    }
+
     private IEnumerator SpawnCar()
     {
         while (gameObject.activeSelf)
         {
             yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime));
-            GameObject car = objPooler.ReturnCar();
-            if (car != null)
+            GameObject carObject = objPooler.ReturnCar();
+            if (carObject != null)
             {
-                car.transform.parent = transform;
-                car.transform.SetPositionAndRotation(transform.position, transform.rotation);
-                car.SetActive(true);
+                carObject.transform.parent = transform;
+                carObject.transform.SetPositionAndRotation(transform.position, transform.rotation);
+                Car car = carObject.GetComponent<Car>();
+                car.SetSpeed(laneSpeed);
+                carObject.SetActive(true);
             }
 
             yield return null;
