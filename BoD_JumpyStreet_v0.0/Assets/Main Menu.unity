@@ -7398,20 +7398,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Zeb Baukhagen:
-
-    Engineering
+  m_text: 'Zeb Baukhagen
 
 
-    Rachel Huggins:
-
-    Duck
+    Rachel Huggins
 
 
-    Emma
-    Cole:
-
-    Program'
+    Emma Cole'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10675,14 +10668,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Use WASD or Arrows to move.
+  m_text: 'Use WASD to move.
 
 
-    Don''t get squished!
+    Don''t get run over!
+
+    Or fall in the water.
 
 
-    Beat the
-    high score.'
+    Beat
+    the high score.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
