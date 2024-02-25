@@ -112,6 +112,9 @@ public class PlayerMovement : MonoBehaviour
         var step = speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, newPosition, step);
 
+        // plays jump sound
+        AudioManager.instance.PlaySFX("Jump");
+
         // Calculate the direction vector and create a rotation towards it
         Vector3 movementDirection = (newPosition - transform.position).normalized;
         if (movementDirection != Vector3.zero) // Prevent LookRotation from creating errors with a zero vector
@@ -147,6 +150,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (other.CompareTag(TagManager.HAZARD))
         {
+            AudioManager.instance.PlaySFX("Squish");
             GameManager.Instance.ResetPlayerScore();
             GameManager.Instance.SaveGameData();
             SceneManager.LoadScene(0);
@@ -174,6 +178,7 @@ public class PlayerMovement : MonoBehaviour
             if (hitInfo.collider.CompareTag(TagManager.WATER))
             {
                 Debug.Log("Hit water!");
+                AudioManager.instance.PlaySFX("Death");
                 rb.isKinematic = false;
                 rb.useGravity = true;
                 overWater = true;

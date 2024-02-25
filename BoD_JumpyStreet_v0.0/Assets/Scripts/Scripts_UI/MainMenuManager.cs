@@ -10,11 +10,16 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI highScoreCounter;
 
 
+    private void Start()
+    {
+        AudioManager.instance.PlayMusic("MainMenu");
+    }
+
     private void Awake()
     {
         GameManager.Instance.LoadGameData();
         UpdateUIScore();
-        AudioManager.instance.PlayMusic("MainMenu");
+        //AudioManager.instance.PlayMusic("MainMenu");
     }
 
     private void UpdateUIScore()
@@ -50,4 +55,8 @@ public class MainMenuManager : MonoBehaviour
 
     #endregion
 
+    public void SFXOnClick()
+    {
+        AudioManager.instance.PlaySFX("Click");
+    }
 }
